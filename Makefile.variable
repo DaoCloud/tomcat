@@ -1,0 +1,4 @@
+SHELL=\bash
+
+DCE_TOMCAT=tomcat
+HUB_PREFIX=daocloud.io/daocloud
