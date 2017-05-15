@@ -1,4 +1,12 @@
 SHELL=\bash
 
+MAKEFILE_DIR=$(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
+
+BUILD_DIR=$(MAKEFILE_DIR)/build_dir
+
 DCE_TOMCAT=tomcat
 HUB_PREFIX=daocloud.io/daocloud
+
+QINIU_AK=$(shell grep QINIU_AK /etc/qiniu_variable|cut -d = -f 2)
+QINIU_SK=$(shell grep QINIU_SK /etc/qiniu_variable|cut -d = -f 2)
+QINIU_BU=$(shell grep QINIU_BU /etc/qiniu_variable|cut -d = -f 2)
