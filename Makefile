@@ -11,7 +11,7 @@ build: $(TOMCAT_VERSIONS) clean
 FORCE:
 
 $(TOMCAT_VERSIONS): FORCE
-	@./build.sh $@
+	@./build $@
 	@docker build -t $(HUB_PREFIX)/$(DCE_TOMCAT):$@ .
 	@rm -f ./Dockerfile
 
