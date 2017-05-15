@@ -10,7 +10,7 @@ FORCE:
 
 $(TOMCAT_VERSIONS): FORCE
 	@./build.sh $@
-	@docker build -t $(HUB_PREFIX)/$(DCE_TOMCAT) .
+	@docker build -t $(HUB_PREFIX)/$(DCE_TOMCAT):$@ .
 	@rm -f ./Dockerfile
 
 release: build
