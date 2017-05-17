@@ -1,36 +1,16 @@
 #!/bin/bash
 
-# set -ex
-
-usage() { 
-    echo "Usage: $0 [-p <IP-Prefix-Pattern>] [-i <Interval>] [-m <Max-Retry>]" 1>&2; exit 1; 
-}
+# Usage:
+# export WAIT_MACVLAN=1
+# [export IP_PREFIX_PATTERN="^10\."]
+# [export INTERVAL=1]
+# [export MAX_RETRY=60]
+# /entrypoint.sh
 
 wait_macvlan() {
     prefix=${IP_PREFIX_PATTERN}
     interval=${INTERVAL:-1}
     max_retry=${MAX_RETRY:-60}
-    while getopts ":i:m:p:" o; do
-        case "${o}" in
-            i)
-                interval=${OPTARG}
-                ;;
-            m)
-                max_retry=${OPTARG}
-                ;;
-            p)
-                prefix=${OPTARG}
-                ;;
-            *)
-                usage
-                ;;
-        esac
-    done
-    shift $((OPTIND-1))
-
-    # if [[ -z "${prefix}" ]]; then
-    #     usage
-    # fi
 
     for i in `seq $max_retry`; do
         address=`ip route get 8.8.8.8 | head -1 | awk '{print $7}'`
