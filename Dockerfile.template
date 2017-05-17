@@ -1,3 +1,6 @@
 FROM daocloud.io/tomcat:$TOMCAT_VERSION
 
 ENV JAVA_OPTS -Xmx2g
+COPY entrypoint.sh /entrypoint.sh
+ENTRYPOINT ["/entrypoint.sh"]
+CMD ["catalina.sh", "run"]
