@@ -23,20 +23,21 @@ wait_macvlan() {
         fi
 
         matched_addr=''
+        is_matched=0
         for addr in $addresses; do
             echo $addr | $cmd 2>&1 > /dev/null
             if [[ $? -eq 0 ]]; then
+                is_matched=1
                 matched_addr=$addr
                 break
             fi
         done
-        is_matched=$?
-        if [[ $is_matched -eq 0 ]]; then
+        if [[ $is_matched -eq 1 ]]; then
             echo "IP Address matched: ${matched_addr}"
             export MATCHED_IPADDRESS=$matched_addr
             return 0
         else
-            echo "IP Address with pattern \`${prefix:-^((!?172.)|(!?10.255.))}\` not found. Now IP Addresses: [$address]. Sleepping ${interval}s for retry. (${i}/${max_retry})"
+            echo "IP Address with pattern \`${prefix:-^((!?172.)|(!?10.255.))}\` not found. Now IP Addresses: [`echo $addresses`]. Sleepping ${interval}s for retry. (${i}/${max_retry})"
         fi
         sleep $interval
     done
