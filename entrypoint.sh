@@ -5,6 +5,7 @@
 # [export IP_PREFIX_PATTERN="^10\."]
 # [export INTERVAL=1]
 # [export MAX_RETRY=60]
+# [export EXIT_ON_FAILED=1]
 # /entrypoint.sh
 
 # set -ex
@@ -46,7 +47,13 @@ wait_macvlan() {
     return 1
 }
 
+wait_failed=0
 if [[ -n "$WAIT_MACVLAN" ]]; then
     wait_macvlan
+    wait_failed=$?
+fi
+if [[ -n "$EXIT_ON_FAILED" && $wait_failed -eq 1 ]]; then
+    echo "Exit on wait IP Address failed"
+    exit 1
 fi
 exec $@
