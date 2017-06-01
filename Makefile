@@ -1,6 +1,6 @@
 include Makefile.variable
 
-TOMCAT_VERSIONS=8.5.13-jre8 8.0.43-jre8 7.0.77-jre8 6.0.51-jre8
+# TOMCAT_VERSIONS=8.5.13-jre8 8.0.43-jre8 7.0.77-jre8 6.0.51-jre8
 
 IMAGES=$(addprefix daocloud.io/daolcoud/tomcat,$(TOMCAT_VERSIONS))
 
@@ -9,6 +9,9 @@ QINIUS=$(addprefix dce-tomcat-runtime-,$(TOMCAT_VERSIONS))
 all: build
 
 build: clean $(TOMCAT_VERSIONS)
+
+test:
+	@echo $(TOMCAT_VERSIONS)
 
 FORCE:
 

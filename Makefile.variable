@@ -2,6 +2,8 @@ SHELL=\bash
 
 MAKEFILE_DIR=$(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
 
+TOMCAT_VERSIONS=$(shell python $(MAKEFILE_DIR)/version.py)
+
 BUILD_DIR=$(MAKEFILE_DIR)/build_dir
 
 DCE_TOMCAT=tomcat
