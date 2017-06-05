@@ -16,7 +16,7 @@ wait_macvlan() {
     max_retry=${MAX_RETRY:-60}
 
     for i in `seq $max_retry`; do
-        addresses=`ip a | grep inet | grep "scope global" | awk '{print $2}'`
+        addresses=`ip a | grep inet | grep "scope global" | awk '{print $2}' | sed 's/\/.*//g'`
         if [[ -z "${prefix}" ]]; then
             cmd='grep -v -E ^172|^10.255'
         else
